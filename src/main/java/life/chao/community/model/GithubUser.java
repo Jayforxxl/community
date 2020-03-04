@@ -1,4 +1,4 @@
-package life.chao.community.vo.response;
+package life.chao.community.model;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import lombok.Data;
  * @date 2020/3/2 10:16
  */
 @Data
-public class GithubUserVo {
+public class GithubUser {
 
     private String name;
 

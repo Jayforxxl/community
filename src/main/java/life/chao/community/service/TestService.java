@@ -1,5 +1,6 @@
 package life.chao.community.service;
 
+
 import life.chao.community.common.model.User;
 
 /**

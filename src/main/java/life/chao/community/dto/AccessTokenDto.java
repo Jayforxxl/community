@@ -1,4 +1,4 @@
-package life.chao.community.vo.request;
+package life.chao.community.dto;
 
 
 import lombok.Data;
@@ -14,7 +14,7 @@ import lombok.Data;
  */
 
 @Data
-public class AccessTokenVo {
+public class AccessTokenDto {
 
     //GitHub应用程序的客户端ID
     private String client_id;

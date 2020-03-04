@@ -16,15 +16,15 @@
         </jdbcConnection>
 
         <!-- 生成模型的包名和位置-->
-        <javaModelGenerator targetPackage="life.chao.community.community.common.model" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="life.chao.community.common.model" targetProject="src/main/java">
         </javaModelGenerator>
 
         <!-- 生成映射文件的包名和位置-->
-        <sqlMapGenerator targetPackage="life.chao.community.community.common.mapper" targetProject="src/main/java">
+        <sqlMapGenerator targetPackage="life.chao.community.common.mapper" targetProject="src/main/java">
         </sqlMapGenerator>
 
         <!-- 生成DAO的包名和位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="life.chao.community.community.common.dao" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="life.chao.community.common.dao" targetProject="src/main/java">
         </javaClientGenerator>
 
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->

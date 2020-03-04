@@ -1,7 +1,6 @@
 package life.chao.community.common.dao;
 
 import java.util.List;
-
 import life.chao.community.common.model.User;
 import life.chao.community.common.model.UserExample;
 import org.apache.ibatis.annotations.Param;

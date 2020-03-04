@@ -7,6 +7,7 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, account_id, name, create_time, modify_time
+    id, account_id, name, create_time, modify_time, token
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="life.chao.community.common.model.UserExample" >
     select
@@ -84,7 +85,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select
+    select 
     <include refid="Base_Column_List" />
     from user
     where id = #{id,jdbcType=BIGINT}
@@ -100,10 +101,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="life.chao.community.common.model.User" >
-    insert into user (id, account_id, name,
-      create_time, modify_time)
-    values (#{id,jdbcType=BIGINT}, #{accountId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
-      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+    insert into user (id, account_id, name, 
+      create_time, modify_time, token
+      )
+    values (#{id,jdbcType=BIGINT}, #{accountId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{token,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="life.chao.community.common.model.User" >
     insert into user
@@ -123,6 +126,9 @@
       <if test="modifyTime != null" >
         modify_time,
       </if>
+      <if test="token != null" >
+        token,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -139,6 +145,9 @@
       </if>
       <if test="modifyTime != null" >
         #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,6 +175,9 @@
       <if test="record.modifyTime != null" >
         modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.token != null" >
+        token = #{record.token,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +189,8 @@
       account_id = #{record.accountId,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      token = #{record.token,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +210,9 @@
       <if test="modifyTime != null" >
         modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="token != null" >
+        token = #{token,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -205,7 +221,8 @@
     set account_id = #{accountId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      token = #{token,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -13,6 +13,8 @@ public class User {
 
     private Date modifyTime;
 
+    private String token;
+
     public Long getId() {
         return id;
     }
@@ -51,5 +53,13 @@ public class User {
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
