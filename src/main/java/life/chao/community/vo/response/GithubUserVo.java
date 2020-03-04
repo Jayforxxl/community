@@ -1,4 +1,4 @@
-package life.chao.community.community.vo.response;
+package life.chao.community.vo.response;
 
 import lombok.Data;
 

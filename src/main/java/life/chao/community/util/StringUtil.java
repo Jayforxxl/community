@@ -1,4 +1,4 @@
-package life.chao.community.community.util;
+package life.chao.community.util;
 
 import org.springframework.stereotype.Component;
 

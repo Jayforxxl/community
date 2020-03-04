@@ -1,4 +1,4 @@
-package life.chao.community.community.controller;
+package life.chao.community.configuration;
 
 /**
  * Description:Github配置项类

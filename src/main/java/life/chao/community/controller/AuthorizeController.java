@@ -1,16 +1,16 @@
-package life.chao.community.community.controller;
+package life.chao.community.controller;
 
-import life.chao.community.community.util.GithubRequestUtil;
-import life.chao.community.community.vo.request.AccessTokenVo;
-import life.chao.community.community.vo.response.GithubUserVo;
+import life.chao.community.util.GithubRequestUtil;
+import life.chao.community.vo.request.AccessTokenVo;
+import life.chao.community.vo.response.GithubUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
@@ -46,9 +46,7 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code")String code,
                            @RequestParam(name = "state")String state,
-                           Model model){
-
-
+                           HttpServletRequest request){
         AccessTokenVo vo = new AccessTokenVo();
         vo.setClient_id(clientId);
         vo.setClient_secret(clientSecret);
@@ -57,16 +55,27 @@ public class AuthorizeController {
         vo.setState(state);
 
         try {
+            //1、获取得到token值
             String accessToken = githubRequestUtil.getAccessToken(vo);
             if (!StringUtils.isEmpty(accessToken)){
+                //2、获取得到user信息
                 GithubUserVo userVo = githubRequestUtil.getUser(accessToken);
-
+                //3、对cookie和session进行处理
+                if (!StringUtils.isEmpty(userVo)){
+                    request.getSession().setAttribute("user",userVo);
+                    return "redirect:/";
+                }else {
+                    return "redirect:/";
+                }
             }
+
+
+
+
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return "index";
     }
 

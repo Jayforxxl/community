@@ -1,11 +1,11 @@
-package life.chao.community.community.vo.request;
+package life.chao.community.vo.request;
 
 
 import lombok.Data;
 
 /**
  * Description:GitHub将用户重定向回您的站点
- * (PS:注意这里的属性名严格按照Github开发文档妈妈,
+ * (PS:注意这里的属性名严格按照Github开发文档,
  * 要求是以_分割而不是驼峰,否则返回结结构是一个html,
  * 得不到最后的token结果)
  * @author ZhangJieChao

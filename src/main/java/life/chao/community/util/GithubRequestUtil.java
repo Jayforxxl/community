@@ -1,8 +1,8 @@
-package life.chao.community.community.util;
+package life.chao.community.util;
 
 import com.alibaba.fastjson.JSON;
-import life.chao.community.community.vo.request.AccessTokenVo;
-import life.chao.community.community.vo.response.GithubUserVo;
+import life.chao.community.vo.request.AccessTokenVo;
+import life.chao.community.vo.response.GithubUserVo;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
