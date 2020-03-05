@@ -27,4 +27,8 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    User findByToken(@Param("token")String token);
+
+    User isPresent(@Param("accountId")Long accountId);
 }

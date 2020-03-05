@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author ZhangJieChao
@@ -46,7 +47,11 @@ public class AuthorizeController {
      * PS:此处不能用R类包装,必须返回返回地址
      * */
     @GetMapping("/callback")
-    public String callback(@RequestParam(name = "code")String code, @RequestParam(name = "state")String state, HttpServletRequest request){
+    public String callback(@RequestParam(name = "code")String code,
+                           @RequestParam(name = "state")String state,
+                           HttpServletRequest request,
+                           HttpServletResponse response
+                           ){
         if (StringUtils.isEmpty(code)){
             log.error("获取不到Git账户的code值");
         }
@@ -60,7 +65,7 @@ public class AuthorizeController {
         dto.setRedirect_uri(redirectUri);
         dto.setState(state);
 
-        return authorizeService.callback(dto,request);
+        return authorizeService.callback(dto,request,response);
     }
 
 

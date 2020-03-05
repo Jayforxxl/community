@@ -85,7 +85,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from user
     where id = #{id,jdbcType=BIGINT}
@@ -101,10 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="life.chao.community.common.model.User" >
-    insert into user (id, account_id, name, 
+    insert into user (id, account_id, name,
       create_time, modify_time, token
       )
-    values (#{id,jdbcType=BIGINT}, #{accountId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{accountId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{token,jdbcType=VARCHAR}
       )
   </insert>
@@ -157,7 +157,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+    <update id="updateByExampleSelective" parameterType="map" >
     update user
     <set >
       <if test="record.id != null" >
@@ -225,4 +225,14 @@
       token = #{token,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+  <select id="findByToken" resultType="life.chao.community.common.model.User">
+    SELECT * FROM user u WHERE u.token = #{token}
+  </select>
+  <select id="isPresent" resultType="life.chao.community.common.model.User">
+    SELECT * FROM user u WHERE u.account_id = #{accountId}
+  </select>
+
+
 </mapper>

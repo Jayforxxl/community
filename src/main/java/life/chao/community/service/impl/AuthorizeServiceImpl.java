@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -31,28 +33,37 @@ public class AuthorizeServiceImpl implements AuthorizeService {
     private UserMapper userMapper;
 
     @Override
-    public String callback(AccessTokenDto dto, HttpServletRequest request) {
+    public String callback(AccessTokenDto dto, HttpServletRequest request, HttpServletResponse response) {
         //1、获取得到token值
         String accessToken = null;
         try {
             accessToken = githubRequestUtil.getAccessToken(dto);
             if (!StringUtils.isEmpty(accessToken)){
                 //2、获取得到user信息
-                GithubUser userVo = githubRequestUtil.getUser(accessToken);
+                GithubUser user = githubRequestUtil.getUser(accessToken);
                 //3、对cookie和session进行处理
-                if (!StringUtils.isEmpty(userVo)){
-                    User user = new User();
-                    user.setToken(UUID.randomUUID().toString());
-                    user.setName(userVo.getName());
-                    user.setAccountId(Long.valueOf(userVo.getId()));
-                    user.setCreateTime(new Timestamp(System.currentTimeMillis()));
-                    user.setModifyTime(new Timestamp(System.currentTimeMillis()));
-                    userMapper.insert(user);
-                    request.getSession().setAttribute("user",userVo);
-                    return "redirect:/";
-                }else {
-                    return "redirect:/";
+                if (!StringUtils.isEmpty(user)){
+                    //4.查询数据库中是否存在改用户
+                    User tmpUser = userMapper.isPresent(Long.valueOf(user.getId()));
+                    if (!StringUtils.isEmpty(tmpUser)){
+                        User tmp = new User();
+                        tmp.setId(tmpUser.getId());
+                        tmp.setModifyTime(new Timestamp(System.currentTimeMillis()));
+                        userMapper.updateByPrimaryKeySelective(tmp);
+                        response.addCookie(new Cookie("token",tmpUser.getToken()));
+                    }else {
+                        User tmp = new User();
+                        tmp.setToken(UUID.randomUUID().toString());
+                        tmp.setName(user.getName());
+                        tmp.setAccountId(Long.valueOf(user.getId()));
+                        tmp.setCreateTime(new Timestamp(System.currentTimeMillis()));
+                        userMapper.insert(tmp);
+                        //request.getSession().setAttribute("user",userVo);
+                        //使用数据库代替session写入的实现
+                        response.addCookie(new Cookie("token",tmp.getToken()));
+                    }
                 }
+                return "redirect:/";
             }
         } catch (IOException e) {
             e.printStackTrace();
