@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/community.css">
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
@@ -14,7 +15,7 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">CC社区</span>
                 </button>
-                <a class="navbar-brand" href="#">CC社区</a>
+                <a class="navbar-brand" href="/">CC社区</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -29,7 +30,7 @@
                         <a href="/publish">发布</a>
                     </li>
                     <li class="dropdown" th:if="${session.user != null}">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我<span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">消息中心</a></li>
                             <li><a href="#">个人资料</a></li>
@@ -44,5 +45,31 @@
             </div>
         </div>
     </nav>
+    <div class="container-fluid publish-main">
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span>发现</h2>
+                <hr>
+                <div class="cmu-div" th:each="item : ${contentList.getList()}">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object img-circle cmu-img-size" th:src="${item.avatarUrl}" >
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading cmu-margin-top">[[${item.title}]]</h4>
+                            [[${item.description}]]
+                            <span class="cmu-text">[[${item.commentCount}]]个回复 · [[${item.viewCount}]]个浏览 · [[${item.createTime}]]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <h3>热门话题</h3>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

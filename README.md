@@ -11,3 +11,4 @@
 [Git命令行的使用](https://www.liaoxuefeng.com/wiki/896043488029600/898732837407424)
 [Flyway(数据库脚本管理工具,项目中没用到,作了解用)](https://flywaydb.org/)
 [SpringBoot热部署](https://blog.csdn.net/hzwy23/article/details/79925365)
+[配置打印执行SQL内容](https://www.cnblogs.com/staring0815/p/10517765.html)

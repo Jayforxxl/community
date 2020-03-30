@@ -15,6 +15,8 @@ public class User {
 
     private String token;
 
+    private String avatarUrl;
+
     public Long getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }

@@ -48,6 +48,8 @@ public class AuthorizeServiceImpl implements AuthorizeService {
                     if (!StringUtils.isEmpty(tmpUser)){
                         User tmp = new User();
                         tmp.setId(tmpUser.getId());
+                        tmp.setName(user.getName());
+                        tmp.setAvatarUrl(user.getAvatar_url());
                         tmp.setModifyTime(new Timestamp(System.currentTimeMillis()));
                         userMapper.updateByPrimaryKeySelective(tmp);
                         response.addCookie(new Cookie("token",tmpUser.getToken()));
@@ -57,6 +59,7 @@ public class AuthorizeServiceImpl implements AuthorizeService {
                         tmp.setName(user.getName());
                         tmp.setAccountId(Long.valueOf(user.getId()));
                         tmp.setCreateTime(new Timestamp(System.currentTimeMillis()));
+                        tmp.setAvatarUrl(user.getAvatar_url());
                         userMapper.insert(tmp);
                         //request.getSession().setAttribute("user",userVo);
                         //使用数据库代替session写入的实现

@@ -19,4 +19,6 @@ public class GithubUser {
     //用户描述
     private String bio;
 
+    //用户头像
+    private String avatar_url;
 }

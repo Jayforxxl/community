@@ -74,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, create_time, modify_time, create_userid, comment_count, view_count, like_count, 
+    id, title, create_time, modify_time, create_userid, comment_count, view_count, like_count,
     tag
   </sql>
   <sql id="Blob_Column_List" >
@@ -111,7 +111,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -129,13 +129,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="life.chao.community.common.model.PostContent" >
-    insert into post_content (id, title, create_time, 
-      modify_time, create_userid, comment_count, 
-      view_count, like_count, tag, 
+    insert into post_content (id, title, create_time,
+      modify_time, create_userid, comment_count,
+      view_count, like_count, tag,
       description)
-    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifyTime,jdbcType=TIMESTAMP}, #{createUserid,jdbcType=BIGINT}, #{commentCount,jdbcType=INTEGER}, 
-      #{viewCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, #{tag,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{modifyTime,jdbcType=TIMESTAMP}, #{createUserid,jdbcType=BIGINT}, #{commentCount,jdbcType=INTEGER},
+      #{viewCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, #{tag,jdbcType=VARCHAR},
       #{description,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="life.chao.community.common.model.PostContent" >
@@ -338,4 +338,21 @@
       tag = #{tag,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <!--ExtraMapper-->
+  <select id="getContentList" resultType="java.util.LinkedHashMap">
+    SELECT
+    pc.id AS "id",
+    pc.title AS "title",
+    pc.description AS "description",
+    pc.comment_count AS "commentCount",
+    pc.view_count AS "viewCount",
+    pc.like_count AS "likeCount",
+    pc.tag AS "tag",
+    date_format(pc.create_time,'%Y-%m-%d %H:%i:%s') AS "createTime",
+    u.avatar_url AS "avatarUrl"
+    FROM post_content pc
+    LEFT JOIN user u ON pc.create_userid = u.id
+  </select>
+
 </mapper>

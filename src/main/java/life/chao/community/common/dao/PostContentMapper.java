@@ -1,8 +1,10 @@
 package life.chao.community.common.dao;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import life.chao.community.common.model.PostContent;
 import life.chao.community.common.model.PostContentExample;
+import life.chao.community.dto.PostContentDto;
 import org.apache.ibatis.annotations.Param;
 
 public interface PostContentMapper {
@@ -33,4 +35,6 @@ public interface PostContentMapper {
     int updateByPrimaryKeyWithBLOBs(PostContent record);
 
     int updateByPrimaryKey(PostContent record);
+
+    List<LinkedHashMap<String,Object>> getContentList(PostContentDto dto);
 }

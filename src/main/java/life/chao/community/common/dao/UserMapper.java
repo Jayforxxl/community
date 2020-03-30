@@ -31,4 +31,6 @@ public interface UserMapper {
     User findByToken(@Param("token")String token);
 
     User isPresent(@Param("accountId")Long accountId);
+
+
 }
